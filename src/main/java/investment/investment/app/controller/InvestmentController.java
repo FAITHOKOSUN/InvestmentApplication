@@ -62,7 +62,13 @@ public class InvestmentController {
        model.addAttribute("investment", investment);
        return "details";
     }
-    @PostMapping("/update/{id}")
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Investment investment = investmentService.getInvestmentDetailsById(id);
+        model.addAttribute("investment", investment);
+        return "edit";
+    }
+    @PostMapping("/edit/{id}")
     public String updateInvestment(@PathVariable Long id, @RequestParam String name, @RequestParam BigDecimal amount) {
         investmentService.updateInvestment(id, name, amount);
         return "redirect:/investment/details/" + id;

@@ -27,7 +27,6 @@ public class InvestmentServiceImpl implements InvestmentService{
     public Investment CreateInvestment(Investment investment) {
         BigDecimal availableFunds = availableFunds();
 
-
         if (investment.getAmount().compareTo(availableFunds) <= 0) {
             return repo.save(investment);
         }
@@ -37,15 +36,10 @@ public class InvestmentServiceImpl implements InvestmentService{
     @Override
 
     public Investment getInvestmentDetailsById(Long id) {
-        // Try to find the investment by its ID in the repository
         Optional<Investment> investment = repo.findById(id);
-
-        // Check if the investment was found
         if (investment.isPresent()) {
-            // If found, return the investment details
             return investment.get();
         } else {
-            // If not found, throw an error with a clear message
             throw new RuntimeException("Investment not found");
         }
     }
